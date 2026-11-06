@@ -41,33 +41,34 @@ export default async function HomePage() {
   const spotlightProjects = featuredProjects.length > 0 ? featuredProjects : allPublished;
 
   return (
-    <div className="space-y-24 pb-24 text-[#111111] bg-[#F7F5EF] relative overflow-hidden">
-      {/* 1. CINEMATIC "ENGINEERING IN MOTION" HERO WITH 3D METALLIC SCULPTURE */}
+    <div className="space-y-12 sm:space-y-16 lg:space-y-20 pb-16 sm:pb-20 text-[#111111] bg-[#F7F5EF] relative overflow-hidden">
+      
+      {/* 1. CLEAN HERO SECTION */}
       <CinematicHero totalProjects={allPublished.length} />
 
-      {/* 2. BOLD EDITORIAL ADVERTISING MANIFESTO: "DON'T JUST BUILD A PROJECT. BUILD SOMETHING THAT MATTERS." */}
+      {/* 2. RESTRAINED ENGINEERING STANDARDS */}
       <EditorialManifesto />
 
-      {/* 3. IMMERSIVE FEATURED-PROJECT ADVERTISING STAGE (Using Actual Project Data) */}
+      {/* 3. FEATURED PROJECTS SHOWCASE */}
       <CinematicShowcase projects={spotlightProjects} />
 
-      {/* 4. HORIZONTAL DISCIPLINE NAVIGATION & TABS */}
+      {/* 4. DISCIPLINE NAVIGATION & TABS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="p-6 rounded-3xl bg-white border border-[#E8D2D6] shadow-sm space-y-4">
+        <div className="p-5 sm:p-6 rounded-3xl bg-white border border-[#E8D2D6] shadow-xs space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
               <h2 className="text-base sm:text-lg font-bold font-heading text-[#111111]">
                 Engineering Disciplines
               </h2>
-              <p className="text-xs text-[#111111]/80 font-medium">
-                Filter verified packages categorized by academic department and specialization
+              <p className="text-xs text-[#111111]/75 font-normal">
+                Explore project packages categorized by engineering department
               </p>
             </div>
             <Link
               href="/projects"
-              className="text-xs font-mono text-[#111111] hover:text-[#6E263D] transition-colors flex items-center gap-1 font-bold"
+              className="text-xs font-mono text-[#111111] hover:text-[#6E263D] transition-colors flex items-center gap-1 font-bold self-start sm:self-auto"
             >
-              <span>View All ({allPublished.length})</span>
+              <span>View All Projects ({allPublished.length})</span>
               <ArrowRight className="h-3.5 w-3.5 text-[#6E263D]" />
             </Link>
           </div>
@@ -76,48 +77,48 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 5. ACADEMIC DEPARTMENTS CARDS GRID */}
+      {/* 5. ACADEMIC DEPARTMENTS GRID */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto mb-10">
-          <span className="text-[10px] font-mono uppercase tracking-widest text-[#111111]/70 block mb-2 font-bold">
-            ACADEMIC DOMAINS
+        <div className="max-w-2xl mb-6 sm:mb-8">
+          <span className="text-xs font-mono uppercase tracking-wider text-[#6E263D] font-bold block mb-1">
+            Academic Domains
           </span>
-          <h2 className="text-2xl sm:text-4xl font-bold font-heading text-[#111111]">
-            Specialized Engineering Departments
+          <h2 className="text-2xl sm:text-3xl font-bold font-heading text-[#111111]">
+            Engineering Departments
           </h2>
-          <p className="text-xs sm:text-sm text-[#111111]/80 mt-2 font-medium">
-            Select your discipline to access pre-verified project deliverables and IEEE paper references.
+          <p className="text-xs sm:text-sm text-[#111111]/75 mt-1 font-normal">
+            Choose your branch to view pre-tested projects with IEEE documentation and viva slides.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
           {BRANCHES.map((branch) => (
             <BranchCard key={branch.id} branch={branch} />
           ))}
         </div>
       </section>
 
-      {/* 6. REPOSITORY CATALOG PREVIEWS (White Cards with Burgundy Accents) */}
+      {/* 6. REPOSITORY CATALOG PREVIEWS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6 sm:mb-8">
           <div>
-            <span className="text-[10px] font-mono uppercase tracking-widest text-[#111111]/70 block mb-1 font-bold">
-              PORTFOLIO SELECTION
+            <span className="text-xs font-mono uppercase tracking-wider text-[#6E263D] font-bold block mb-1">
+              Popular Catalog Entries
             </span>
-            <h2 className="text-2xl sm:text-4xl font-bold font-heading text-[#111111]">
+            <h2 className="text-2xl sm:text-3xl font-bold font-heading text-[#111111]">
               Trending Engineering Projects
             </h2>
           </div>
           <Link
             href="/projects"
-            className="mt-4 md:mt-0 text-xs font-mono text-[#111111] hover:text-[#6E263D] transition-colors flex items-center gap-1 font-bold"
+            className="text-xs font-mono text-[#111111] hover:text-[#6E263D] transition-colors flex items-center gap-1 font-bold self-start sm:self-auto"
           >
             <span>Full Catalog ({allPublished.length})</span>
             <ArrowRight className="h-3.5 w-3.5 text-[#6E263D]" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           {(featuredProjects || []).length > 0 ? (
             featuredProjects.slice(0, 6).map((project) => (
               <ProjectCard key={project.id} project={project} />
@@ -127,114 +128,112 @@ export default async function HomePage() {
               <p className="text-sm font-bold text-[#111111]">No featured projects found.</p>
               <Link
                 href="/projects"
-                className="mt-4 inline-flex items-center gap-2 px-6 py-2.5 rounded-full luxury-button-accent text-xs font-bold"
+                className="mt-3 inline-flex items-center gap-1.5 px-5 py-2 rounded-full luxury-button-accent text-xs font-bold"
               >
-                Browse Catalog <ArrowRight className="h-4 w-4 text-[#111111]" />
+                Browse Catalog <ArrowRight className="h-3.5 w-3.5 text-[#111111]" />
               </Link>
             </div>
           )}
         </div>
       </section>
 
-      {/* 7. COMPREHENSIVE VIVA PACKAGE GUARANTEE */}
+      {/* 7. PACKAGE DELIVERABLES BREAKDOWN */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="p-8 sm:p-12 rounded-3xl bg-white border border-[#E8D2D6] shadow-sm relative overflow-hidden">
-          <div className="max-w-3xl relative z-10">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-[#111111]/70 block mb-2 font-bold">
-              VERIFIED ARCHITECTURE
+        <div className="p-6 sm:p-10 rounded-3xl bg-white border border-[#E8D2D6] shadow-xs">
+          <div className="max-w-2xl mb-6">
+            <span className="text-xs font-mono uppercase tracking-wider text-[#6E263D] font-bold block mb-1">
+              Included Deliverables
             </span>
-            <h2 className="text-2xl sm:text-4xl font-bold font-heading text-[#111111] leading-tight mb-6">
-              Complete Viva Submission & Defense Deliverables
+            <h2 className="text-2xl sm:text-3xl font-bold font-heading text-[#111111]">
+              Everything Needed for Final Viva Defense
             </h2>
+            <p className="text-xs sm:text-sm text-[#111111]/75 mt-1 font-normal">
+              Every package comes complete with tested source code, documentation, and presentation materials.
+            </p>
+          </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-              <div className="p-5 rounded-2xl bg-[#F7F5EF] border border-[#E8E5DC] flex items-start gap-4">
-                <div className="h-10 w-10 rounded-xl bg-[#F4E8E8] border border-[#E8D2D6] flex items-center justify-center text-[#111111] shrink-0">
-                  <Download className="h-5 w-5 text-[#6E263D]" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-[#111111] text-sm font-heading">Tested Source Code (ZIP)</h4>
-                  <p className="text-xs text-[#111111]/80 mt-1 font-medium leading-relaxed">
-                    Modular, documented codebases with requirements.txt or package.json configurations.
-                  </p>
-                </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="p-4 sm:p-5 rounded-2xl bg-[#F7F5EF] border border-[#E8E5DC] flex items-start gap-3.5">
+              <div className="h-9 w-9 rounded-xl bg-[#F4E8E8] border border-[#E8D2D6] flex items-center justify-center shrink-0">
+                <Download className="h-4 w-4 text-[#6E263D]" />
               </div>
-
-              <div className="p-5 rounded-2xl bg-[#F7F5EF] border border-[#E8E5DC] flex items-start gap-4">
-                <div className="h-10 w-10 rounded-xl bg-[#F4E8E8] border border-[#E8D2D6] flex items-center justify-center text-[#111111] shrink-0">
-                  <FileText className="h-5 w-5 text-[#6E263D]" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-[#111111] text-sm font-heading">IEEE Project Report (.docx & PDF)</h4>
-                  <p className="text-xs text-[#111111]/80 mt-1 font-medium leading-relaxed">
-                    40-60 page formatted report with abstract, data flow, architecture diagrams, and references.
-                  </p>
-                </div>
+              <div>
+                <h4 className="font-bold text-[#111111] text-xs sm:text-sm font-heading">Tested Source Code (ZIP)</h4>
+                <p className="text-xs text-[#111111]/75 mt-0.5 font-normal leading-relaxed">
+                  Modular codebases with configuration files, requirements.txt, and setup instructions.
+                </p>
               </div>
+            </div>
 
-              <div className="p-5 rounded-2xl bg-[#F7F5EF] border border-[#E8E5DC] flex items-start gap-4">
-                <div className="h-10 w-10 rounded-xl bg-[#F4E8E8] border border-[#E8D2D6] flex items-center justify-center text-[#111111] shrink-0">
-                  <Award className="h-5 w-5 text-[#6E263D]" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-[#111111] text-sm font-heading">Seminar Viva Presentation (.pptx)</h4>
-                  <p className="text-xs text-[#111111]/80 mt-1 font-medium leading-relaxed">
-                    Structured 15-20 slide presentation decks designed for university external viva examiners.
-                  </p>
-                </div>
+            <div className="p-4 sm:p-5 rounded-2xl bg-[#F7F5EF] border border-[#E8E5DC] flex items-start gap-3.5">
+              <div className="h-9 w-9 rounded-xl bg-[#F4E8E8] border border-[#E8D2D6] flex items-center justify-center shrink-0">
+                <FileText className="h-4 w-4 text-[#6E263D]" />
               </div>
+              <div>
+                <h4 className="font-bold text-[#111111] text-xs sm:text-sm font-heading">IEEE Project Report (.docx & PDF)</h4>
+                <p className="text-xs text-[#111111]/75 mt-0.5 font-normal leading-relaxed">
+                  40-60 page formatted report with literature review, data flow, architecture diagrams, and references.
+                </p>
+              </div>
+            </div>
 
-              <div className="p-5 rounded-2xl bg-[#F7F5EF] border border-[#E8E5DC] flex items-start gap-4">
-                <div className="h-10 w-10 rounded-xl bg-[#F4E8E8] border border-[#E8D2D6] flex items-center justify-center text-[#111111] shrink-0">
-                  <Video className="h-5 w-5 text-[#6E263D]" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-[#111111] text-sm font-heading">Execution Video & Setup Guide</h4>
-                  <p className="text-xs text-[#111111]/80 mt-1 font-medium leading-relaxed">
-                    Detailed runtime walkthrough and environment setup guide for seamless execution.
-                  </p>
-                </div>
+            <div className="p-4 sm:p-5 rounded-2xl bg-[#F7F5EF] border border-[#E8E5DC] flex items-start gap-3.5">
+              <div className="h-9 w-9 rounded-xl bg-[#F4E8E8] border border-[#E8D2D6] flex items-center justify-center shrink-0">
+                <Award className="h-4 w-4 text-[#6E263D]" />
+              </div>
+              <div>
+                <h4 className="font-bold text-[#111111] text-xs sm:text-sm font-heading">Viva Presentation (.pptx)</h4>
+                <p className="text-xs text-[#111111]/75 mt-0.5 font-normal leading-relaxed">
+                  Structured 15-20 slide presentation decks designed for university external examiners.
+                </p>
+              </div>
+            </div>
+
+            <div className="p-4 sm:p-5 rounded-2xl bg-[#F7F5EF] border border-[#E8E5DC] flex items-start gap-3.5">
+              <div className="h-9 w-9 rounded-xl bg-[#F4E8E8] border border-[#E8D2D6] flex items-center justify-center shrink-0">
+                <Video className="h-4 w-4 text-[#6E263D]" />
+              </div>
+              <div>
+                <h4 className="font-bold text-[#111111] text-xs sm:text-sm font-heading">Execution Video & Setup Guide</h4>
+                <p className="text-xs text-[#111111]/75 mt-0.5 font-normal leading-relaxed">
+                  Screen-recorded setup walkthrough for easy installation and error-free execution.
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 8. SOPHISTICATED BURGUNDY & IVORY CALL-TO-ACTION SECTION */}
+      {/* 8. REFINED CUSTOM R&D CALL-TO-ACTION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="p-10 sm:p-16 rounded-3xl bg-gradient-to-br from-white via-[#F4E8E8] to-[#E8D2D6] text-center relative overflow-hidden border-2 border-[#E8D2D6] shadow-xl">
-          <div className="max-w-2xl mx-auto space-y-6 relative z-10">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#E8D2D6] text-[#111111] text-xs font-mono font-bold shadow-xs">
-              <Sparkles className="h-3.5 w-3.5 text-[#6E263D]" />
-              <span>BESPOKE R&D CONSULTING</span>
-            </div>
+        <div className="p-8 sm:p-12 rounded-3xl bg-white border border-[#E8D2D6] shadow-xs text-center">
+          <div className="max-w-xl mx-auto space-y-4">
+            <span className="text-xs font-mono uppercase tracking-wider text-[#6E263D] font-bold block">
+              Custom Engineering Orders
+            </span>
 
-            <h2 className="text-3xl sm:text-5xl font-black font-heading text-[#111111] tracking-tight">
-              Have an idea?
+            <h2 className="text-2xl sm:text-3xl font-bold font-heading text-[#111111] tracking-tight">
+              Have a Specific Project Requirement?
             </h2>
 
-            <p className="text-base sm:text-xl text-[#111111] font-bold leading-relaxed">
-              Let&apos;s engineer something extraordinary.
+            <p className="text-xs sm:text-sm text-[#111111]/80 font-normal leading-relaxed">
+              Our engineering mentors build custom implementations based on specific IEEE base papers, unique datasets, and custom technology stacks.
             </p>
 
-            <p className="text-xs sm:text-sm text-[#111111]/80 font-medium max-w-lg mx-auto">
-              Our engineering mentors work with you to develop custom algorithms, specific IEEE base papers, and production stacks tailored to your semester requirements.
-            </p>
-
-            <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div className="pt-3 flex flex-col sm:flex-row items-center justify-center gap-3">
               <Link
                 href="/custom-request"
-                className="w-full sm:w-auto px-8 py-4 rounded-full bg-white hover:bg-[#F7F5EF] text-[#111111] font-black text-xs sm:text-sm flex items-center justify-center gap-2 border-2 border-[#6E263D] shadow-md transition-all"
+                className="w-full sm:w-auto px-6 py-3 rounded-full luxury-button-accent font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-xs"
               >
-                <span>Submit Custom Order</span>
-                <ArrowRight className="h-4 w-4 text-[#111111]" />
+                <span>Request Custom Project</span>
+                <ArrowRight className="h-3.5 w-3.5 text-[#111111]" />
               </Link>
 
               <a
-                href="https://wa.me/917382324346?text=Hi%20VECNEX%20Engineering!%20I%20have%20a%20custom%20project%20idea%20I%20want%20to%20engineer."
+                href="https://wa.me/917382324346?text=Hi%20VECNEX%20Engineering!%20I%20have%20a%20custom%20project%20idea%20I%20want%20to%20discuss."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto px-8 py-4 rounded-full bg-[#E8D2D6] hover:bg-[#F4E8E8] text-[#111111] font-bold text-xs sm:text-sm flex items-center justify-center gap-2 border border-[#6E263D]/40 transition-all shadow-xs"
+                className="w-full sm:w-auto px-6 py-3 rounded-full bg-[#F4E8E8] hover:bg-[#E8D2D6] text-[#111111] font-bold text-xs sm:text-sm flex items-center justify-center gap-2 border border-[#E8D2D6] transition-colors"
               >
                 <MessageCircle className="h-4 w-4 text-[#25D366] fill-[#25D366]" />
                 <span>Chat with Mentor on WhatsApp</span>

@@ -24,7 +24,7 @@ export default function WhatsAppButton() {
       } catch (_) {
         setShowNotification(true);
       }
-    }, 2500);
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -40,68 +40,66 @@ export default function WhatsAppButton() {
   const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${DEFAULT_MESSAGE}`;
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
-      {/* Interactive Burgundy Luxury Glass Notification Bubble - Black Typography */}
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex flex-col items-end pointer-events-auto">
+      {/* Compact Notification Bubble */}
       {showNotification && (
-        <div className="mb-3 max-w-[320px] sm:max-w-xs bg-white text-[#111111] p-4 rounded-2xl border border-[#E8D2D6] shadow-xl animate-in slide-in-from-bottom-4 fade-in duration-300">
-          <div className="flex items-start justify-between gap-2 pb-2.5 border-b border-[#E8E5DC]">
-            <div className="flex items-center gap-2">
-              <span className="relative flex h-2.5 w-2.5">
+        <div className="mb-2.5 w-[calc(100vw-2rem)] max-w-[280px] sm:max-w-xs bg-white text-[#111111] p-3.5 sm:p-4 rounded-2xl border border-[#E8D2D6] shadow-lg animate-in slide-in-from-bottom-2 fade-in duration-200">
+          <div className="flex items-center justify-between gap-2 pb-2 border-b border-[#E8E5DC]">
+            <div className="flex items-center gap-1.5">
+              <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
-              <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#111111]">
-                Engineering Desk
+              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#111111]">
+                Engineering Support
               </span>
             </div>
             <button
               onClick={handleDismiss}
-              className="text-[#111111]/70 hover:text-[#111111] p-1 rounded-lg hover:bg-[#F4E8E8] transition-colors"
+              className="text-[#111111]/60 hover:text-[#111111] p-1 rounded-md hover:bg-[#F4E8E8] transition-colors"
               aria-label="Close notification"
             >
               <X className="h-3.5 w-3.5" />
             </button>
           </div>
 
-          <div className="pt-2.5 space-y-2">
-            <p className="text-xs text-[#111111] font-medium leading-relaxed">
-              Have questions regarding source code deliverables, IEEE formatted reports, or custom domain stacks?
+          <div className="pt-2 space-y-1">
+            <p className="text-xs text-[#111111] font-normal leading-relaxed">
+              Questions about source code deliverables or IEEE documentation?
             </p>
-            <p className="text-[11px] font-mono text-[#111111] font-bold">
-              Direct line: <span className="text-[#6E263D]">{DISPLAY_PHONE}</span>
+            <p className="text-[11px] font-mono text-[#6E263D] font-bold">
+              {DISPLAY_PHONE}
             </p>
           </div>
 
-          <div className="pt-3">
+          <div className="pt-2.5">
             <a
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setShowNotification(false)}
-              className="w-full py-2.5 px-4 rounded-full bg-[#E8D2D6] hover:bg-[#F4E8E8] text-[#111111] font-bold text-xs shadow-sm transition-all flex items-center justify-center gap-2 border border-[#6E263D]/40"
+              className="w-full py-2 px-3.5 rounded-full bg-[#E8D2D6] hover:bg-[#F4E8E8] text-[#111111] font-bold text-xs shadow-xs transition-all flex items-center justify-center gap-1.5 border border-[#6E263D]/30"
             >
-              <MessageCircle className="h-4 w-4 text-[#25D366] fill-[#25D366]" />
-              <span>Connect on WhatsApp</span>
-              <ArrowRight className="h-3.5 w-3.5 text-[#111111]" />
+              <MessageCircle className="h-3.5 w-3.5 text-[#25D366] fill-[#25D366]" />
+              <span>Chat on WhatsApp</span>
+              <ArrowRight className="h-3 w-3 text-[#111111]" />
             </a>
           </div>
         </div>
       )}
 
-      {/* Floating WhatsApp Action Icon with Status Ring */}
+      {/* Floating Action Button */}
       <div className="relative group">
-        <span className="absolute -inset-1 rounded-full bg-[#E8D2D6] animate-ping opacity-60 pointer-events-none" />
-
         <a
           href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`Chat with us on WhatsApp at ${DISPLAY_PHONE}`}
-          className="relative flex items-center justify-center w-14 h-14 sm:w-15 sm:h-15 rounded-full bg-[#25D366] hover:bg-[#1EBE5D] shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 border-2 border-white"
+          className="relative flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#25D366] hover:bg-[#1EBE5D] shadow-lg transition-transform duration-200 hover:scale-105 active:scale-95 border-2 border-white"
         >
-          {/* Universal Official WhatsApp SVG Icon */}
+          {/* Universal WhatsApp Icon */}
           <svg
-            className="w-7 h-7 sm:w-8 sm:h-8 fill-white drop-shadow-xs"
+            className="w-6 h-6 sm:w-7 sm:h-7 fill-white"
             viewBox="0 0 32 32"
             aria-hidden="true"
           >
@@ -109,15 +107,14 @@ export default function WhatsAppButton() {
           </svg>
 
           {/* Status Dot */}
-          <span className="absolute -top-0.5 -right-0.5 flex h-4 w-4">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-4 w-4 bg-emerald-500 border-2 border-white"></span>
+          <span className="absolute -top-0.5 -right-0.5 flex h-3.5 w-3.5">
+            <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-500 border-2 border-white"></span>
           </span>
         </a>
 
-        {/* Hover Tooltip - Black Typography */}
+        {/* Desktop Tooltip */}
         {!showNotification && (
-          <div className="absolute right-full top-1/2 -translate-y-1/2 mr-3 px-3 py-1.5 rounded-xl bg-white border border-[#E8D2D6] text-[#111111] text-xs font-mono font-bold whitespace-nowrap shadow-md opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-200">
+          <div className="hidden sm:block absolute right-full top-1/2 -translate-y-1/2 mr-3 px-3 py-1.5 rounded-xl bg-white border border-[#E8D2D6] text-[#111111] text-xs font-mono font-bold whitespace-nowrap shadow-md opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-200">
             WhatsApp: {DISPLAY_PHONE}
           </div>
         )}

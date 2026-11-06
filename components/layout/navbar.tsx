@@ -71,16 +71,14 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full glass-navbar border-b border-[#E8D2D6] backdrop-blur-md">
-      {/* Top Burgundy & Ivory Micro-Announcement Bar */}
-      <div className="bg-[#F4E8E8] border-b border-[#E8D2D6] text-[11px] sm:text-xs py-1.5 px-4">
+    <header className="sticky top-0 z-50 w-full glass-navbar border-b border-[#E8D2D6] backdrop-blur-md bg-[#F7F5EF]/90">
+      {/* Top Micro-Announcement Bar */}
+      <div className="bg-[#F4E8E8] border-b border-[#E8D2D6] text-[11px] py-1.5 px-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
           <div className="flex items-center gap-2 text-[#111111] font-medium truncate">
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#E8D2D6] border border-[#6E263D]/20 text-[#111111] text-[10px] font-mono uppercase tracking-wider font-bold">
-              VERIFIED REPOSITORY
-            </span>
-            <span className="hidden md:inline text-[#111111]">
-              Curated Academic Engineering Packages • Production Code & IEEE Formats
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#6E263D]" />
+            <span className="text-[#111111] truncate">
+              Verified Academic Engineering Packages • IEEE Documentation & Viva Decks
             </span>
           </div>
 
@@ -89,36 +87,37 @@ export default function Navbar() {
               href="/custom-request"
               className="text-[11px] font-mono text-[#111111] hover:text-[#6E263D] transition-colors flex items-center gap-1 font-bold"
             >
-              <span>Custom R&D</span>
+              <span>Custom Orders</span>
               <ArrowRight className="h-3 w-3 text-[#6E263D]" />
             </Link>
           </div>
         </div>
       </div>
 
-      {/* Main Glass Navbar Container */}
+      {/* Main Navbar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* VECNEX Brand Logo */}
+        <div className="flex items-center justify-between h-16 sm:h-20">
+          
+          {/* Logo */}
           <Link href="/" className="group flex items-center gap-3">
             <VecnexLogo size="md" />
           </Link>
 
-          {/* Desktop Navigation Links */}
+          {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-1 lg:gap-2">
             <Link
               href="/"
-              className="px-3.5 py-2 rounded-xl text-xs font-bold text-[#111111] hover:bg-[#F4E8E8] hover:text-[#6E263D] transition-all tracking-wide"
+              className="px-3.5 py-2 rounded-xl text-xs font-bold text-[#111111] hover:bg-[#F4E8E8] hover:text-[#6E263D] transition-colors tracking-wide"
             >
               Home
             </Link>
 
             <Link
               href="/projects"
-              className="px-3.5 py-2 rounded-xl text-xs font-bold text-[#111111] hover:bg-[#F4E8E8] hover:text-[#6E263D] transition-all tracking-wide flex items-center gap-1.5"
+              className="px-3.5 py-2 rounded-xl text-xs font-bold text-[#111111] hover:bg-[#F4E8E8] hover:text-[#6E263D] transition-colors tracking-wide flex items-center gap-1.5"
             >
               <Compass className="h-3.5 w-3.5 text-[#6E263D]" />
-              <span>All Projects</span>
+              <span>Projects</span>
             </Link>
 
             {/* Branches Dropdown */}
@@ -129,9 +128,9 @@ export default function Navbar() {
             >
               <button
                 type="button"
-                className="px-3.5 py-2 rounded-xl text-xs font-bold text-[#111111] hover:bg-[#F4E8E8] hover:text-[#6E263D] transition-all tracking-wide flex items-center gap-1 cursor-pointer"
+                className="px-3.5 py-2 rounded-xl text-xs font-bold text-[#111111] hover:bg-[#F4E8E8] hover:text-[#6E263D] transition-colors tracking-wide flex items-center gap-1 cursor-pointer"
               >
-                <span>Branches</span>
+                <span>Disciplines</span>
                 <ChevronDown
                   className={`h-3.5 w-3.5 text-[#111111]/70 transition-transform duration-200 ${
                     branchesOpen ? 'rotate-180 text-[#6E263D]' : ''
@@ -140,25 +139,20 @@ export default function Navbar() {
               </button>
 
               {branchesOpen && (
-                <div className="absolute top-full left-0 w-80 p-2 mt-1 rounded-2xl bg-white border border-[#E8D2D6] shadow-xl space-y-1 animate-in fade-in zoom-in-95 duration-150 z-50">
-                  <div className="px-3 py-1.5 text-[10px] font-mono uppercase tracking-widest text-[#111111]/70 border-b border-[#E8E5DC] mb-1 font-bold">
-                    Specialized Disciplines
+                <div className="absolute top-full left-0 w-72 p-2 mt-1 rounded-2xl bg-white border border-[#E8D2D6] shadow-xl space-y-1 animate-in fade-in zoom-in-95 duration-150 z-50">
+                  <div className="px-3 py-1.5 text-[10px] font-mono uppercase tracking-wider text-[#111111]/70 border-b border-[#E8E5DC] mb-1 font-bold">
+                    Select Department
                   </div>
                   {BRANCHES.map((b) => (
                     <Link
                       key={b.id}
                       href={`/branches/${b.id}`}
                       onClick={() => setBranchesOpen(false)}
-                      className="flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-medium text-[#111111] hover:bg-[#F4E8E8] transition-colors group/item"
+                      className="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium text-[#111111] hover:bg-[#F4E8E8] transition-colors group/item"
                     >
-                      <div className="flex flex-col">
-                        <span className="font-bold text-[#111111] group-hover/item:text-[#6E263D]">
-                          {b.fullName}
-                        </span>
-                        <span className="text-[10px] text-[#111111]/70 font-mono">
-                          {b.name} Specialization
-                        </span>
-                      </div>
+                      <span className="font-bold text-[#111111] group-hover/item:text-[#6E263D]">
+                        {b.fullName}
+                      </span>
                       <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-[#F4E8E8] border border-[#E8D2D6] text-[#111111] font-bold">
                         {b.name}
                       </span>
@@ -170,7 +164,7 @@ export default function Navbar() {
 
             <Link
               href="/custom-request"
-              className="px-3.5 py-2 rounded-xl text-xs font-bold text-[#111111] hover:bg-[#F4E8E8] hover:text-[#6E263D] transition-all tracking-wide flex items-center gap-1.5"
+              className="px-3.5 py-2 rounded-xl text-xs font-bold text-[#111111] hover:bg-[#F4E8E8] hover:text-[#6E263D] transition-colors tracking-wide flex items-center gap-1.5"
             >
               <Sparkles className="h-3.5 w-3.5 text-[#6E263D]" />
               <span>Custom Order</span>
@@ -178,13 +172,13 @@ export default function Navbar() {
           </nav>
 
           {/* Right Action CTAs */}
-          <div className="hidden sm:flex items-center gap-3">
+          <div className="hidden sm:flex items-center gap-2.5">
             <Link
               href="/dashboard"
-              className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white hover:bg-[#F4E8E8] text-[#111111] text-xs font-bold transition-all border border-[#E8D2D6] shadow-xs"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white hover:bg-[#F4E8E8] text-[#111111] text-xs font-bold transition-colors border border-[#E8D2D6] shadow-xs"
             >
               <ShoppingBag className="h-3.5 w-3.5 text-[#6E263D]" />
-              <span>My Purchases</span>
+              <span>My Orders</span>
             </Link>
 
             {user ? (
@@ -192,13 +186,13 @@ export default function Navbar() {
                 <button
                   type="button"
                   onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                  className="flex items-center gap-2 px-3.5 py-2 rounded-full bg-[#F4E8E8] hover:bg-[#E8D2D6] text-[#111111] text-xs font-bold transition-all border border-[#6E263D]/30 cursor-pointer shadow-xs"
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#F4E8E8] hover:bg-[#E8D2D6] text-[#111111] text-xs font-bold transition-colors border border-[#6E263D]/30 cursor-pointer shadow-xs"
                 >
                   <div className="w-5 h-5 rounded-full bg-white text-[#111111] border border-[#6E263D]/40 flex items-center justify-center text-[10px] font-black">
                     {user.name.charAt(0).toUpperCase()}
                   </div>
                   <span className="max-w-[100px] truncate">{user.name.split(' ')[0]}</span>
-                  <ChevronDown className="h-3.5 w-3.5 text-[#111111]" />
+                  <ChevronDown className="h-3 w-3 text-[#111111]" />
                 </button>
 
                 {userDropdownOpen && (
@@ -224,7 +218,7 @@ export default function Navbar() {
                         className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-[#111111] hover:bg-[#F4E8E8] transition-colors"
                       >
                         <Shield className="h-4 w-4 text-[#6E263D]" />
-                        <span>Admin Dashboard</span>
+                        <span>Admin Console</span>
                       </Link>
                     )}
 
@@ -243,7 +237,7 @@ export default function Navbar() {
               <div className="flex items-center gap-2">
                 <Link
                   href="/login"
-                  className="flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-white hover:bg-[#F4E8E8] text-[#111111] text-xs font-bold transition-all border border-[#E8D2D6]"
+                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white hover:bg-[#F4E8E8] text-[#111111] text-xs font-bold transition-colors border border-[#E8D2D6]"
                 >
                   <LogIn className="h-3.5 w-3.5 text-[#6E263D]" />
                   <span>Sign In</span>
@@ -251,7 +245,7 @@ export default function Navbar() {
 
                 <Link
                   href="/login?mode=signup"
-                  className="flex items-center gap-1.5 px-4 py-2.5 rounded-full luxury-button-accent text-xs font-bold transition-all"
+                  className="flex items-center gap-1.5 px-4 py-2 rounded-full luxury-button-accent text-xs font-bold transition-colors"
                 >
                   <User className="h-3.5 w-3.5 text-[#111111]" />
                   <span>Join</span>
@@ -260,27 +254,28 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* Mobile Navigation Toggle Button */}
+          {/* Mobile Menu Toggle */}
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="md:hidden p-2 rounded-xl text-[#111111] hover:bg-[#F4E8E8] border border-[#E8D2D6] transition-colors"
             aria-label="Toggle Navigation Menu"
           >
-            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer Navigation Menu */}
+      {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#F7F5EF] border-b border-[#E8D2D6] px-4 pt-4 pb-8 space-y-4 animate-in slide-in-from-top-4 duration-200">
+        <div className="md:hidden bg-[#F7F5EF] border-b border-[#E8D2D6] px-4 pt-3 pb-6 space-y-3 animate-in slide-in-from-top-2 duration-150">
           <Link
             href="/projects"
             onClick={() => setMobileMenuOpen(false)}
-            className="block px-4 py-3 text-xs font-bold text-[#111111] bg-white rounded-xl border border-[#E8D2D6]"
+            className="flex items-center gap-2 px-4 py-3 text-xs font-bold text-[#111111] bg-white rounded-xl border border-[#E8D2D6]"
           >
-            All Projects Catalog
+            <Compass className="h-4 w-4 text-[#6E263D]" />
+            <span>All Projects Catalog</span>
           </Link>
 
           <Link
@@ -293,8 +288,8 @@ export default function Navbar() {
           </Link>
 
           <div className="pt-2">
-            <p className="px-2 text-[10px] font-mono text-[#111111]/70 uppercase tracking-widest mb-2 font-bold">
-              Browse Departments
+            <p className="px-1 text-[10px] font-mono text-[#111111]/70 uppercase tracking-wider mb-2 font-bold">
+              Engineering Disciplines
             </p>
             <div className="grid grid-cols-2 gap-2">
               {BRANCHES.map((b) => (
@@ -302,7 +297,7 @@ export default function Navbar() {
                   key={b.id}
                   href={`/branches/${b.id}`}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="px-3 py-2.5 text-xs text-[#111111] hover:bg-[#F4E8E8] bg-white border border-[#E8D2D6] rounded-xl font-bold"
+                  className="px-3 py-2 text-xs text-[#111111] hover:bg-[#F4E8E8] bg-white border border-[#E8D2D6] rounded-xl font-bold truncate"
                 >
                   {b.name}
                 </Link>
@@ -313,14 +308,14 @@ export default function Navbar() {
           <div className="pt-3 border-t border-[#E8D2D6] flex flex-col gap-2">
             {user ? (
               <>
-                <div className="px-4 py-3 bg-white rounded-xl border border-[#E8D2D6]">
+                <div className="px-3.5 py-2.5 bg-white rounded-xl border border-[#E8D2D6]">
                   <p className="text-xs font-bold text-[#111111]">{user.name}</p>
                   <p className="text-[10px] text-[#111111]/70 font-mono">{user.email}</p>
                 </div>
                 <Link
                   href="/dashboard"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full text-center px-4 py-3 bg-white text-[#111111] rounded-full text-xs font-bold border border-[#E8D2D6]"
+                  className="w-full text-center px-4 py-2.5 bg-white text-[#111111] rounded-full text-xs font-bold border border-[#E8D2D6]"
                 >
                   My Purchases
                 </Link>
@@ -328,9 +323,9 @@ export default function Navbar() {
                   <Link
                     href="/admin"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="w-full text-center px-4 py-3 bg-white text-[#111111] rounded-full text-xs font-bold border border-[#E8D2D6]"
+                    className="w-full text-center px-4 py-2.5 bg-white text-[#111111] rounded-full text-xs font-bold border border-[#E8D2D6]"
                   >
-                    Admin Dashboard
+                    Admin Console
                   </Link>
                 )}
                 <button
@@ -339,28 +334,28 @@ export default function Navbar() {
                     handleSignOut();
                     setMobileMenuOpen(false);
                   }}
-                  className="w-full text-center px-4 py-3 bg-[#F4E8E8] text-[#6E263D] border border-[#6E263D]/30 rounded-full text-xs font-bold"
+                  className="w-full text-center px-4 py-2.5 bg-[#F4E8E8] text-[#6E263D] border border-[#6E263D]/30 rounded-full text-xs font-bold cursor-pointer"
                 >
                   Sign Out
                 </button>
               </>
             ) : (
-              <>
+              <div className="grid grid-cols-2 gap-2">
                 <Link
                   href="/login"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full text-center px-4 py-3 bg-white text-[#111111] rounded-full text-xs font-bold border border-[#E8D2D6]"
+                  className="text-center px-4 py-2.5 bg-white text-[#111111] rounded-full text-xs font-bold border border-[#E8D2D6]"
                 >
                   Sign In
                 </Link>
                 <Link
                   href="/login?mode=signup"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full text-center px-4 py-3 luxury-button-accent rounded-full text-xs font-bold"
+                  className="text-center px-4 py-2.5 luxury-button-accent rounded-full text-xs font-bold"
                 >
-                  Create Account
+                  Join
                 </Link>
-              </>
+              </div>
             )}
           </div>
         </div>
