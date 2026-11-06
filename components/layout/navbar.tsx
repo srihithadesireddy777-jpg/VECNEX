@@ -1,21 +1,36 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import { ShoppingBag, Shield, Menu, X, ChevronDown, Sparkles, User, LogIn, LogOut } from 'lucide-react';
+import {
+  ShoppingBag,
+  Shield,
+  Menu,
+  X,
+  ChevronDown,
+  Sparkles,
+  User,
+  LogIn,
+  LogOut,
+  ArrowRight,
+  Compass,
+} from 'lucide-react';
 import { BRANCHES } from '@/lib/constants';
-
+import VecnexLogo from '@/components/common/vecnex-logo';
 import { createClient } from '@/lib/supabase/client';
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [user, setUser] = useState<{ name: string; email: string; role: string } | null>(null);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
+  const [branchesOpen, setBranchesOpen] = useState(false);
 
   useEffect(() => {
     const checkUser = () => {
-      const stored = localStorage.getItem('capstonia_user') || localStorage.getItem('fastrack_user');
+      const stored =
+        localStorage.getItem('capstonia_user') ||
+        localStorage.getItem('fastrack_user') ||
+        localStorage.getItem('vecnex_user');
       if (stored) {
         try {
           setUser(JSON.parse(stored));
@@ -49,107 +64,116 @@ export default function Navbar() {
     } catch {}
     localStorage.removeItem('capstonia_user');
     localStorage.removeItem('fastrack_user');
+    localStorage.removeItem('vecnex_user');
     setUser(null);
     setUserDropdownOpen(false);
     window.dispatchEvent(new Event('authChange'));
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-[#ECE4DA]/95 backdrop-blur-md border-b border-[#D8CEBE] shadow-xs">
-      {/* Top Announcement Bar */}
-      <div className="bg-gradient-to-r from-neutral-950 via-amber-950 to-neutral-950 text-white text-[11px] sm:text-xs py-2 px-4 text-center font-bold border-b border-amber-500/30 flex items-center justify-center gap-2 flex-wrap">
-        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-400 text-black text-[10px] font-black tracking-wider uppercase">
-          Verified Deliverables
-        </span>
-        <span className="text-amber-100 font-medium">
-          Complete Engineering Projects with Verified Code, IEEE Report & PPT Included!
-        </span>
-        <Link
-          href="/projects"
-          className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-500 hover:bg-amber-400 text-black font-black text-[11px] shadow-xs transition-colors ml-1"
-        >
-          <span>Explore Projects</span>
-          <span>→</span>
-        </Link>
+    <header className="sticky top-0 z-50 w-full glass-navbar border-b border-[#E8D2D6] backdrop-blur-md">
+      {/* Top Burgundy & Ivory Micro-Announcement Bar */}
+      <div className="bg-[#F4E8E8] border-b border-[#E8D2D6] text-[11px] sm:text-xs py-1.5 px-4">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
+          <div className="flex items-center gap-2 text-[#111111] font-medium truncate">
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#E8D2D6] border border-[#6E263D]/20 text-[#111111] text-[10px] font-mono uppercase tracking-wider font-bold">
+              VERIFIED REPOSITORY
+            </span>
+            <span className="hidden md:inline text-[#111111]">
+              Curated Academic Engineering Packages • Production Code & IEEE Formats
+            </span>
+          </div>
+
+          <div className="flex items-center gap-4 shrink-0 text-[#111111]">
+            <Link
+              href="/custom-request"
+              className="text-[11px] font-mono text-[#111111] hover:text-[#6E263D] transition-colors flex items-center gap-1 font-bold"
+            >
+              <span>Custom R&D</span>
+              <ArrowRight className="h-3 w-3 text-[#6E263D]" />
+            </Link>
+          </div>
+        </div>
       </div>
 
+      {/* Main Glass Navbar Container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Brand Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="h-11 w-11 rounded-2xl bg-[#000000] p-1 flex items-center justify-center group-hover:scale-105 transition-transform shadow-xs overflow-hidden border border-[#D8CEBE]">
-              <Image
-                src="/images/logo.jpg"
-                alt="Capstonia logo"
-                width={36}
-                height={36}
-                className="object-contain rounded-xl"
-              />
-            </div>
-
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-xl font-extrabold tracking-tight text-[#000000]">
-                  Capstonia
-                </span>
-                <span className="hidden sm:inline-flex text-[10px] font-bold text-[#000000] bg-[#E5DCCF] px-2 py-0.5 rounded-full border border-[#D8CEBE]">
-                  STORE
-                </span>
-              </div>
-              <p className="text-[11px] text-[#000000]/80 font-medium">
-                Engineering Projects Marketplace
-              </p>
-            </div>
+          {/* VECNEX Brand Logo */}
+          <Link href="/" className="group flex items-center gap-3">
+            <VecnexLogo size="md" />
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          {/* Desktop Navigation Links */}
+          <nav className="hidden md:flex items-center gap-1 lg:gap-2">
             <Link
               href="/"
-              className="text-sm font-bold text-[#000000] hover:opacity-70 transition-opacity"
+              className="px-3.5 py-2 rounded-xl text-xs font-bold text-[#111111] hover:bg-[#F4E8E8] hover:text-[#6E263D] transition-all tracking-wide"
             >
               Home
             </Link>
 
             <Link
               href="/projects"
-              className="text-sm font-bold text-[#000000] hover:opacity-70 transition-opacity"
+              className="px-3.5 py-2 rounded-xl text-xs font-bold text-[#111111] hover:bg-[#F4E8E8] hover:text-[#6E263D] transition-all tracking-wide flex items-center gap-1.5"
             >
-              All Projects
+              <Compass className="h-3.5 w-3.5 text-[#6E263D]" />
+              <span>All Projects</span>
             </Link>
 
-            {/* Department Dropdown */}
-            <div className="relative group">
-              <button className="text-sm font-bold text-[#000000] group-hover:opacity-70 transition-opacity flex items-center gap-1 py-2">
-                Branches
-                <ChevronDown className="h-4 w-4 text-[#000000]/70 group-hover:rotate-180 transition-transform duration-200" />
+            {/* Branches Dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={() => setBranchesOpen(true)}
+              onMouseLeave={() => setBranchesOpen(false)}
+            >
+              <button
+                type="button"
+                className="px-3.5 py-2 rounded-xl text-xs font-bold text-[#111111] hover:bg-[#F4E8E8] hover:text-[#6E263D] transition-all tracking-wide flex items-center gap-1 cursor-pointer"
+              >
+                <span>Branches</span>
+                <ChevronDown
+                  className={`h-3.5 w-3.5 text-[#111111]/70 transition-transform duration-200 ${
+                    branchesOpen ? 'rotate-180 text-[#6E263D]' : ''
+                  }`}
+                />
               </button>
 
-              <div className="absolute top-full left-1/2 -translate-x-1/2 w-72 p-2 bg-[#FAF6F0] border border-[#D8CEBE] rounded-2xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-2 group-hover:translate-y-0 space-y-1">
-                <div className="px-3 py-1.5 text-[10px] font-bold text-[#000000]/60 uppercase tracking-wider border-b border-[#D8CEBE]/60 mb-1">
-                  Select Department
+              {branchesOpen && (
+                <div className="absolute top-full left-0 w-80 p-2 mt-1 rounded-2xl bg-white border border-[#E8D2D6] shadow-xl space-y-1 animate-in fade-in zoom-in-95 duration-150 z-50">
+                  <div className="px-3 py-1.5 text-[10px] font-mono uppercase tracking-widest text-[#111111]/70 border-b border-[#E8E5DC] mb-1 font-bold">
+                    Specialized Disciplines
+                  </div>
+                  {BRANCHES.map((b) => (
+                    <Link
+                      key={b.id}
+                      href={`/branches/${b.id}`}
+                      onClick={() => setBranchesOpen(false)}
+                      className="flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-medium text-[#111111] hover:bg-[#F4E8E8] transition-colors group/item"
+                    >
+                      <div className="flex flex-col">
+                        <span className="font-bold text-[#111111] group-hover/item:text-[#6E263D]">
+                          {b.fullName}
+                        </span>
+                        <span className="text-[10px] text-[#111111]/70 font-mono">
+                          {b.name} Specialization
+                        </span>
+                      </div>
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-[#F4E8E8] border border-[#E8D2D6] text-[#111111] font-bold">
+                        {b.name}
+                      </span>
+                    </Link>
+                  ))}
                 </div>
-                {BRANCHES.map((b) => (
-                  <Link
-                    key={b.id}
-                    href={`/branches/${b.id}`}
-                    className="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold text-[#000000] hover:bg-[#ECE4DA] transition-colors"
-                  >
-                    <span>{b.fullName}</span>
-                    <span className="text-[10px] font-bold text-[#000000] bg-[#E5DCCF] px-1.5 py-0.5 rounded">
-                      {b.name}
-                    </span>
-                  </Link>
-                ))}
-              </div>
+              )}
             </div>
 
             <Link
               href="/custom-request"
-              className="text-sm font-bold text-[#000000] hover:opacity-70 transition-opacity flex items-center gap-1"
+              className="px-3.5 py-2 rounded-xl text-xs font-bold text-[#111111] hover:bg-[#F4E8E8] hover:text-[#6E263D] transition-all tracking-wide flex items-center gap-1.5"
             >
-              <Sparkles className="h-4 w-4 text-[#000000]" />
-              Custom Order
+              <Sparkles className="h-3.5 w-3.5 text-[#6E263D]" />
+              <span>Custom Order</span>
             </Link>
           </nav>
 
@@ -157,54 +181,59 @@ export default function Navbar() {
           <div className="hidden sm:flex items-center gap-3">
             <Link
               href="/dashboard"
-              className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#FAF6F0] hover:bg-[#E5DCCF] text-[#000000] text-xs font-bold transition-all border border-[#D8CEBE]"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white hover:bg-[#F4E8E8] text-[#111111] text-xs font-bold transition-all border border-[#E8D2D6] shadow-xs"
             >
-              <ShoppingBag className="h-4 w-4 text-[#000000]" />
-              My Purchases
+              <ShoppingBag className="h-3.5 w-3.5 text-[#6E263D]" />
+              <span>My Purchases</span>
             </Link>
 
             {user ? (
               <div className="relative">
                 <button
+                  type="button"
                   onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#000000] text-[#FFFFFF] text-xs font-extrabold shadow-sm hover:bg-[#1a1a1a] transition-all"
+                  className="flex items-center gap-2 px-3.5 py-2 rounded-full bg-[#F4E8E8] hover:bg-[#E8D2D6] text-[#111111] text-xs font-bold transition-all border border-[#6E263D]/30 cursor-pointer shadow-xs"
                 >
-                  <div className="w-5 h-5 rounded-full bg-[#FFFFFF] text-[#000000] flex items-center justify-center text-[10px] font-black">
+                  <div className="w-5 h-5 rounded-full bg-white text-[#111111] border border-[#6E263D]/40 flex items-center justify-center text-[10px] font-black">
                     {user.name.charAt(0).toUpperCase()}
                   </div>
-                  <span>{user.name.split(' ')[0]}</span>
-                  <ChevronDown className="h-3.5 w-3.5 text-[#FFFFFF]" />
+                  <span className="max-w-[100px] truncate">{user.name.split(' ')[0]}</span>
+                  <ChevronDown className="h-3.5 w-3.5 text-[#111111]" />
                 </button>
 
                 {userDropdownOpen && (
-                  <div className="absolute right-0 top-full mt-2 w-52 p-2 bg-[#FAF6F0] border border-[#D8CEBE] rounded-2xl shadow-xl z-50 space-y-1">
-                    <div className="px-3 py-2 border-b border-[#D8CEBE]/80 mb-1">
-                      <p className="text-xs font-black text-[#000000] truncate">{user.name}</p>
-                      <p className="text-[10px] text-[#000000]/70 font-medium truncate">{user.email}</p>
+                  <div className="absolute right-0 top-full mt-2 w-56 p-2 rounded-2xl bg-white border border-[#E8D2D6] shadow-xl z-50 space-y-1 animate-in fade-in duration-150">
+                    <div className="px-3 py-2 border-b border-[#E8E5DC] mb-1">
+                      <p className="text-xs font-bold text-[#111111] truncate">{user.name}</p>
+                      <p className="text-[10px] text-[#111111]/70 font-mono truncate">{user.email}</p>
                     </div>
+
                     <Link
                       href="/dashboard"
                       onClick={() => setUserDropdownOpen(false)}
-                      className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-[#000000] hover:bg-[#ECE4DA]"
+                      className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-[#111111] hover:bg-[#F4E8E8] transition-colors"
                     >
-                      <ShoppingBag className="h-4 w-4 text-[#000000]" />
+                      <ShoppingBag className="h-4 w-4 text-[#6E263D]" />
                       <span>My Purchases</span>
                     </Link>
+
                     {user.role === 'ADMIN' && (
                       <Link
                         href="/admin"
                         onClick={() => setUserDropdownOpen(false)}
-                        className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-[#000000] hover:bg-[#ECE4DA]"
+                        className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-[#111111] hover:bg-[#F4E8E8] transition-colors"
                       >
-                        <Shield className="h-4 w-4 text-[#000000]" />
+                        <Shield className="h-4 w-4 text-[#6E263D]" />
                         <span>Admin Dashboard</span>
                       </Link>
                     )}
+
                     <button
+                      type="button"
                       onClick={handleSignOut}
-                      className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-[#000000] hover:bg-[#ECE4DA] text-left"
+                      className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-[#6E263D] hover:bg-[#F4E8E8] transition-colors text-left cursor-pointer"
                     >
-                      <LogOut className="h-4 w-4 text-[#000000]" />
+                      <LogOut className="h-4 w-4 text-[#6E263D]" />
                       <span>Sign Out</span>
                     </button>
                   </div>
@@ -214,79 +243,103 @@ export default function Navbar() {
               <div className="flex items-center gap-2">
                 <Link
                   href="/login"
-                  className="flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-[#FAF6F0] hover:bg-[#E5DCCF] text-[#000000] text-xs font-extrabold transition-all border border-[#D8CEBE]"
+                  className="flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-white hover:bg-[#F4E8E8] text-[#111111] text-xs font-bold transition-all border border-[#E8D2D6]"
                 >
-                  <LogIn className="h-4 w-4" />
-                  Sign In
+                  <LogIn className="h-3.5 w-3.5 text-[#6E263D]" />
+                  <span>Sign In</span>
                 </Link>
+
                 <Link
                   href="/login?mode=signup"
-                  className="flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-[#000000] hover:bg-[#1a1a1a] text-[#FFFFFF] text-xs font-extrabold transition-all shadow-sm"
+                  className="flex items-center gap-1.5 px-4 py-2.5 rounded-full luxury-button-accent text-xs font-bold transition-all"
                 >
-                  <User className="h-4 w-4" />
-                  Sign Up
+                  <User className="h-3.5 w-3.5 text-[#111111]" />
+                  <span>Join</span>
                 </Link>
               </div>
             )}
           </div>
 
-          {/* Mobile Hamburger */}
+          {/* Mobile Navigation Toggle Button */}
           <button
+            type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-xl text-[#000000]"
+            className="md:hidden p-2 rounded-xl text-[#111111] hover:bg-[#F4E8E8] border border-[#E8D2D6] transition-colors"
+            aria-label="Toggle Navigation Menu"
           >
             {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Drawer Navigation Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#ECE4DA] border-b border-[#D8CEBE] px-4 pt-3 pb-6 space-y-3">
+        <div className="md:hidden bg-[#F7F5EF] border-b border-[#E8D2D6] px-4 pt-4 pb-8 space-y-4 animate-in slide-in-from-top-4 duration-200">
           <Link
             href="/projects"
             onClick={() => setMobileMenuOpen(false)}
-            className="block px-3 py-2 text-sm font-bold text-[#000000] bg-[#FAF6F0] rounded-xl border border-[#D8CEBE]"
+            className="block px-4 py-3 text-xs font-bold text-[#111111] bg-white rounded-xl border border-[#E8D2D6]"
           >
             All Projects Catalog
           </Link>
+
+          <Link
+            href="/custom-request"
+            onClick={() => setMobileMenuOpen(false)}
+            className="flex items-center gap-2 px-4 py-3 text-xs font-bold text-[#111111] bg-white rounded-xl border border-[#E8D2D6]"
+          >
+            <Sparkles className="h-4 w-4 text-[#6E263D]" />
+            <span>Custom Engineering Request</span>
+          </Link>
+
           <div className="pt-2">
-            <p className="px-3 text-xs font-bold text-[#000000]/60 uppercase tracking-wider mb-1">
-              Branches
+            <p className="px-2 text-[10px] font-mono text-[#111111]/70 uppercase tracking-widest mb-2 font-bold">
+              Browse Departments
             </p>
-            <div className="grid grid-cols-2 gap-1.5 px-1">
+            <div className="grid grid-cols-2 gap-2">
               {BRANCHES.map((b) => (
                 <Link
                   key={b.id}
                   href={`/branches/${b.id}`}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="px-3 py-2 text-xs text-[#000000] hover:bg-[#FAF6F0] rounded-lg font-bold"
+                  className="px-3 py-2.5 text-xs text-[#111111] hover:bg-[#F4E8E8] bg-white border border-[#E8D2D6] rounded-xl font-bold"
                 >
                   {b.name}
                 </Link>
               ))}
             </div>
           </div>
-          <div className="pt-2 flex flex-col gap-2">
+
+          <div className="pt-3 border-t border-[#E8D2D6] flex flex-col gap-2">
             {user ? (
               <>
-                <div className="px-3 py-2 bg-[#FAF6F0] rounded-xl border border-[#D8CEBE]">
-                  <p className="text-xs font-extrabold text-[#000000]">{user.name}</p>
-                  <p className="text-[10px] font-medium text-[#000000]/70">{user.email}</p>
+                <div className="px-4 py-3 bg-white rounded-xl border border-[#E8D2D6]">
+                  <p className="text-xs font-bold text-[#111111]">{user.name}</p>
+                  <p className="text-[10px] text-[#111111]/70 font-mono">{user.email}</p>
                 </div>
                 <Link
                   href="/dashboard"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full text-center px-4 py-2.5 bg-[#FAF6F0] text-[#000000] rounded-full text-xs font-bold border border-[#D8CEBE]"
+                  className="w-full text-center px-4 py-3 bg-white text-[#111111] rounded-full text-xs font-bold border border-[#E8D2D6]"
                 >
                   My Purchases
                 </Link>
+                {user.role === 'ADMIN' && (
+                  <Link
+                    href="/admin"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="w-full text-center px-4 py-3 bg-white text-[#111111] rounded-full text-xs font-bold border border-[#E8D2D6]"
+                  >
+                    Admin Dashboard
+                  </Link>
+                )}
                 <button
+                  type="button"
                   onClick={() => {
                     handleSignOut();
                     setMobileMenuOpen(false);
                   }}
-                  className="w-full text-center px-4 py-2.5 bg-[#000000] text-[#FFFFFF] rounded-full text-xs font-bold"
+                  className="w-full text-center px-4 py-3 bg-[#F4E8E8] text-[#6E263D] border border-[#6E263D]/30 rounded-full text-xs font-bold"
                 >
                   Sign Out
                 </button>
@@ -296,14 +349,14 @@ export default function Navbar() {
                 <Link
                   href="/login"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full text-center px-4 py-2.5 bg-[#FAF6F0] text-[#000000] rounded-full text-xs font-bold border border-[#D8CEBE]"
+                  className="w-full text-center px-4 py-3 bg-white text-[#111111] rounded-full text-xs font-bold border border-[#E8D2D6]"
                 >
                   Sign In
                 </Link>
                 <Link
                   href="/login?mode=signup"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full text-center px-4 py-2.5 bg-[#000000] text-[#FFFFFF] rounded-full text-xs font-bold"
+                  className="w-full text-center px-4 py-3 luxury-button-accent rounded-full text-xs font-bold"
                 >
                   Create Account
                 </Link>

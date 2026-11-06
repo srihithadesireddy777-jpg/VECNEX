@@ -7,6 +7,7 @@ import { normalizeProjects } from '@/lib/utils/project';
 import ProjectCard from '@/components/catalog/project-card';
 import BranchCard from '@/components/catalog/branch-card';
 import Link from 'next/link';
+import { ArrowRight, Compass } from 'lucide-react';
 import { createClient } from '@/lib/supabase/server';
 
 export async function generateStaticParams() {
@@ -31,11 +32,16 @@ export default async function BranchPage({
   const supabase = await createClient();
   let branchProjects: any[] = [];
   try {
-    const { data } = await supabase.from('projects').select('*').eq('branch', branchUpper).eq('is_published', true);
+    const { data } = await supabase
+      .from('projects')
+      .select('*')
+      .eq('branch', branchUpper)
+      .eq('is_published', true);
     const dbProjects = data && data.length > 0 ? normalizeProjects(data) : [];
     const dbSlugs = new Set(dbProjects.map((p) => p.slug));
-    const demoBranchProjects = normalizeProjects(DEMO_PROJECTS)
-      .filter((p) => p.branch === branchUpper && !dbSlugs.has(p.slug));
+    const demoBranchProjects = normalizeProjects(DEMO_PROJECTS).filter(
+      (p) => p.branch === branchUpper && !dbSlugs.has(p.slug)
+    );
     branchProjects = [...dbProjects, ...demoBranchProjects];
   } catch (err) {
     console.warn('Failed to load branch projects:', err);
@@ -43,30 +49,37 @@ export default async function BranchPage({
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 bg-[#ECE4DA] text-[#000000]">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12 text-[#111111] bg-[#F7F5EF]">
       {/* Branch Banner Header */}
-      <div className="p-8 sm:p-10 rounded-3xl bg-[#FAF6F0] border border-[#D8CEBE] shadow-xs relative overflow-hidden">
-        <div className="relative z-10 max-w-3xl">
-          <span className="inline-block px-3 py-1 rounded-full text-xs font-black bg-[#000000] text-[#FFFFFF] shadow-xs mb-4">
-            {branchInfo.fullName}
-          </span>
-          <h1 className="text-3xl sm:text-5xl font-black text-[#000000]">
+      <div className="p-8 sm:p-12 rounded-3xl bg-white border-2 border-[#E8D2D6] shadow-sm relative overflow-hidden">
+        <div className="relative z-10 max-w-3xl space-y-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#F4E8E8] border border-[#E8D2D6] text-[#111111] text-xs font-mono font-bold shadow-xs">
+            <Compass className="h-3.5 w-3.5 text-[#6E263D]" />
+            <span>{branchInfo.fullName}</span>
+          </div>
+
+          <h1 className="text-3xl sm:text-5xl font-black font-heading text-[#111111] tracking-tight">
             {branchInfo.name} Engineering Projects
           </h1>
-          <p className="mt-3 text-sm text-[#000000]/80 leading-relaxed font-medium">
+
+          <p className="text-xs sm:text-sm text-[#111111]/85 leading-relaxed font-medium">
             {branchInfo.description}
           </p>
         </div>
       </div>
 
       {/* Projects List */}
-      <div>
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-black text-[#000000]">
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl font-bold font-heading text-[#111111]">
             Available {branchInfo.name} Packages ({branchProjects.length})
           </h2>
-          <Link href="/projects" className="text-xs font-bold text-[#000000] hover:underline">
-            View All Branches →
+          <Link
+            href="/projects"
+            className="text-xs font-mono text-[#111111] hover:text-[#6E263D] transition-colors flex items-center gap-1 font-bold"
+          >
+            <span>All Disciplines</span>
+            <ArrowRight className="h-3.5 w-3.5 text-[#6E263D]" />
           </Link>
         </div>
 
@@ -77,8 +90,8 @@ export default async function BranchPage({
             ))}
           </div>
         ) : (
-          <div className="text-center py-16 bg-[#FAF6F0] rounded-3xl border border-[#D8CEBE]">
-            <p className="text-[#000000] text-sm font-bold">
+          <div className="text-center py-20 bg-white rounded-3xl border border-[#E8D2D6]">
+            <p className="text-[#111111] text-sm font-bold">
               More {branchInfo.fullName} projects coming soon! Contact support for custom project development.
             </p>
           </div>
@@ -86,12 +99,14 @@ export default async function BranchPage({
       </div>
 
       {/* Other Branches Grid */}
-      <div className="pt-8 border-t border-[#D8CEBE]">
-        <h3 className="text-lg font-black text-[#000000] mb-6">Explore Other Departments</h3>
+      <div className="pt-8 border-t border-[#E8E5DC] space-y-6">
+        <h3 className="text-lg font-bold font-heading text-[#111111]">Explore Other Disciplines</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {BRANCHES.filter((b) => b.id !== branchUpper).slice(0, 4).map((b) => (
-            <BranchCard key={b.id} branch={b} />
-          ))}
+          {BRANCHES.filter((b) => b.id !== branchUpper)
+            .slice(0, 4)
+            .map((b) => (
+              <BranchCard key={b.id} branch={b} />
+            ))}
         </div>
       </div>
     </div>

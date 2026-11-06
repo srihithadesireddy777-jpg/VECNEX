@@ -2,6 +2,7 @@ export const instant = false;
 
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
+import Link from 'next/link';
 import { BRANCHES, DEMO_PROJECTS } from '@/lib/constants';
 import { normalizeProject } from '@/lib/utils/project';
 import RazorpayButton from '@/components/checkout/razorpay-button';
@@ -12,6 +13,10 @@ import {
   Presentation,
   CheckCircle2,
   MessageCircle,
+  Video,
+  ChevronRight,
+  ShieldCheck,
+  Terminal,
 } from 'lucide-react';
 
 export async function generateStaticParams() {
@@ -66,62 +71,76 @@ export default async function ProjectDetailsPage({
   const branchInfo = BRANCHES.find((b) => b.id === project.branch);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 bg-[#ECE4DA] text-[#000000]">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10 text-[#111111] bg-[#F7F5EF]">
       {/* Header Breadcrumb & Title */}
       <div className="space-y-4">
-        <div className="flex items-center gap-2 text-xs font-bold text-[#000000]/70">
-          <span>Projects</span>
-          <span>/</span>
-          <span className="text-[#000000] font-extrabold">{branchInfo?.name}</span>
-          <span>/</span>
-          <span className="text-[#000000] truncate max-w-md">{project.title}</span>
+        <div className="flex items-center gap-2 text-xs font-mono text-[#111111] font-bold">
+          <Link href="/projects" className="hover:text-[#6E263D] transition-colors">
+            Projects
+          </Link>
+          <ChevronRight className="h-3 w-3 text-[#6E263D]" />
+          <Link href={`/branches/${project.branch}`} className="hover:text-[#6E263D] transition-colors">
+            {branchInfo?.name || project.branch}
+          </Link>
+          <ChevronRight className="h-3 w-3 text-[#6E263D]" />
+          <span className="truncate max-w-sm sm:max-w-md">{project.title}</span>
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
-          <span className="px-3.5 py-1 rounded-full text-xs font-black bg-[#000000] text-[#FFFFFF] shadow-xs">
-            {branchInfo?.fullName}
+          <span className="px-3.5 py-1 rounded-full text-xs font-mono font-bold bg-[#E8D2D6] text-[#111111] border border-[#6E263D]/30 shadow-xs">
+            {branchInfo?.fullName || project.branch}
           </span>
-          <span className="px-3.5 py-1 rounded-full text-xs font-bold bg-[#FAF6F0] text-[#000000] border border-[#D8CEBE]">
+          <span className="px-3.5 py-1 rounded-full text-xs font-mono font-bold bg-white text-[#111111] border border-[#E8D2D6] shadow-xs">
             {project.category === 'MAJOR_FINAL_YEAR' ? 'Major Final Year Project' : 'Mini Project'}
           </span>
         </div>
 
-        <h1 className="text-2xl sm:text-4xl font-black text-[#000000] leading-tight">
+        <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black font-heading text-[#111111] leading-tight">
           {project.title}
         </h1>
       </div>
 
       {/* Main Grid: Left Column (Preview & Details), Right Column (Sticky Purchase Box) */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
         {/* Left 2 Columns */}
         <div className="lg:col-span-2 space-y-8">
           {/* Media Preview Image */}
-          <div className="relative h-72 sm:h-96 w-full rounded-3xl overflow-hidden border border-[#D8CEBE] bg-[#ECE4DA] shadow-xs">
+          <div className="relative aspect-[16/10] w-full rounded-3xl overflow-hidden bg-white border border-[#E8D2D6] shadow-lg">
             <Image
               src={project.thumbnail_url}
               alt={project.title}
               fill
+              priority
               sizes="(max-width: 1200px) 100vw, 66vw"
               className="object-cover"
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
           </div>
 
           {/* Description Section */}
-          <div className="p-6 sm:p-8 rounded-3xl bg-[#FAF6F0] border border-[#D8CEBE] space-y-4 shadow-xs">
-            <h2 className="text-xl font-black text-[#000000]">Project Overview & Abstract</h2>
-            <p className="text-sm text-[#000000]/90 leading-relaxed whitespace-pre-line font-medium">
+          <div className="p-6 sm:p-8 rounded-3xl bg-white border border-[#E8D2D6] space-y-4 shadow-sm">
+            <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#111111] font-bold">
+              <FileText className="h-4 w-4 text-[#6E263D]" />
+              <span>Project Abstract & System Architecture</span>
+            </div>
+            <h2 className="text-xl font-bold font-heading text-[#111111]">Project Overview</h2>
+            <p className="text-xs sm:text-sm text-[#111111]/90 leading-relaxed whitespace-pre-line font-medium">
               {project.full_description}
             </p>
           </div>
 
           {/* Tech Stack Breakdown */}
-          <div className="p-6 sm:p-8 rounded-3xl bg-[#FAF6F0] border border-[#D8CEBE] space-y-4 shadow-xs">
-            <h2 className="text-xl font-black text-[#000000]">Technologies & Tools Used</h2>
-            <div className="flex flex-wrap gap-2">
+          <div className="p-6 sm:p-8 rounded-3xl bg-white border border-[#E8D2D6] space-y-4 shadow-sm">
+            <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#111111] font-bold">
+              <Terminal className="h-4 w-4 text-[#6E263D]" />
+              <span>Core Tech Stack</span>
+            </div>
+            <h2 className="text-xl font-bold font-heading text-[#111111]">Technologies & Frameworks</h2>
+            <div className="flex flex-wrap gap-2 pt-1">
               {(project.tech_stack || []).map((tech) => (
                 <span
                   key={tech}
-                  className="px-3.5 py-1.5 rounded-full bg-[#ECE4DA] border border-[#D8CEBE] text-xs font-extrabold text-[#000000]"
+                  className="px-3.5 py-1.5 rounded-xl bg-[#F4E8E8] border border-[#E8D2D6] text-xs font-mono font-bold text-[#111111]"
                 >
                   {tech}
                 </span>
@@ -130,30 +149,50 @@ export default async function ProjectDetailsPage({
           </div>
 
           {/* Deliverables Checklist */}
-          <div className="p-6 sm:p-8 rounded-3xl bg-[#FAF6F0] border border-[#D8CEBE] space-y-4 shadow-xs">
-            <h2 className="text-xl font-black text-[#000000]">Deliverable Package File Contents</h2>
+          <div className="p-6 sm:p-8 rounded-3xl bg-white border border-[#E8D2D6] space-y-4 shadow-sm">
+            <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#111111] font-bold">
+              <ShieldCheck className="h-4 w-4 text-[#6E263D]" />
+              <span>Verification Guarantee</span>
+            </div>
+            <h2 className="text-xl font-bold font-heading text-[#111111]">Deliverable Package Contents</h2>
             <div className="space-y-3">
-              <div className="flex items-start gap-3.5 p-4 bg-[#ECE4DA] rounded-2xl border border-[#D8CEBE]">
-                <FileCode className="h-5 w-5 text-[#000000] shrink-0 mt-0.5" />
+              <div className="flex items-start gap-4 p-4 bg-[#F7F5EF] rounded-2xl border border-[#E8E5DC]">
+                <FileCode className="h-5 w-5 text-[#6E263D] shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="text-sm font-black text-[#000000]">Source Code ZIP Archive</h4>
-                  <p className="text-xs text-[#000000]/80 mt-0.5 font-medium">Complete executable project folder with all scripts & configuration.</p>
+                  <h4 className="text-sm font-bold text-[#111111] font-heading">Source Code ZIP Archive</h4>
+                  <p className="text-xs text-[#111111]/80 mt-0.5 font-medium">
+                    Complete executable project folder with all scripts, configuration, and dependencies.
+                  </p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-3.5 p-4 bg-[#ECE4DA] rounded-2xl border border-[#D8CEBE]">
-                <FileText className="h-5 w-5 text-[#000000] shrink-0 mt-0.5" />
+              <div className="flex items-start gap-4 p-4 bg-[#F7F5EF] rounded-2xl border border-[#E8E5DC]">
+                <FileText className="h-5 w-5 text-[#6E263D] shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="text-sm font-black text-[#000000]">IEEE Project Report (.docx & PDF)</h4>
-                  <p className="text-xs text-[#000000]/80 mt-0.5 font-medium">Includes Abstract, Literature Survey, System Design, Data Flow, Test Cases, and References.</p>
+                  <h4 className="text-sm font-bold text-[#111111] font-heading">IEEE Project Report (.docx & PDF)</h4>
+                  <p className="text-xs text-[#111111]/80 mt-0.5 font-medium">
+                    Includes Abstract, Literature Survey, System Design, Data Flow Diagrams, Test Cases, and References.
+                  </p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-3.5 p-4 bg-[#ECE4DA] rounded-2xl border border-[#D8CEBE]">
-                <Presentation className="h-5 w-5 text-[#000000] shrink-0 mt-0.5" />
+              <div className="flex items-start gap-4 p-4 bg-[#F7F5EF] rounded-2xl border border-[#E8E5DC]">
+                <Presentation className="h-5 w-5 text-[#6E263D] shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="text-sm font-black text-[#000000]">PPT Presentation Deck (.pptx)</h4>
-                  <p className="text-xs text-[#000000]/80 mt-0.5 font-medium">Ready 15-20 slide presentation deck formatted for university viva evaluation.</p>
+                  <h4 className="text-sm font-bold text-[#111111] font-heading">PPT Presentation Deck (.pptx)</h4>
+                  <p className="text-xs text-[#111111]/80 mt-0.5 font-medium">
+                    Ready 15-20 slide presentation deck structured for university external viva examiners.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4 p-4 bg-[#F7F5EF] rounded-2xl border border-[#E8E5DC]">
+                <Video className="h-5 w-5 text-[#6E263D] shrink-0 mt-0.5" />
+                <div>
+                  <h4 className="text-sm font-bold text-[#111111] font-heading">Video Demo & Execution Guide</h4>
+                  <p className="text-xs text-[#111111]/80 mt-0.5 font-medium">
+                    Step-by-step video demonstration and installation instructions for running the project on your laptop.
+                  </p>
                 </div>
               </div>
             </div>
@@ -162,53 +201,54 @@ export default async function ProjectDetailsPage({
 
         {/* Right Column: Sticky Deliverable & Order Card */}
         <div className="lg:col-span-1">
-          <div className="sticky top-24 p-6 sm:p-8 rounded-3xl bg-[#FAF6F0] space-y-6 shadow-md border border-[#D8CEBE]">
+          <div className="sticky top-28 p-6 sm:p-8 rounded-3xl bg-white space-y-6 border-2 border-[#E8D2D6] shadow-xl">
             <div>
-              <div className="flex items-center justify-between mb-1">
-                <span className="text-xs font-black text-[#000000]/80 uppercase tracking-wider block">
-                  Complete Deliverables Package
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-[#111111] block font-bold">
+                  DELIVERABLE PACKAGE
                 </span>
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-emerald-500/10 text-emerald-800 border border-emerald-500/20">
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-[#F4E8E8] text-[#6E263D] border border-[#E8D2D6]">
                   VERIFIED
                 </span>
               </div>
-              <h3 className="text-xl font-black text-[#000000] mt-2">
-                Source Code, IEEE Report & PPT
+              <h3 className="text-lg sm:text-xl font-bold font-heading text-[#111111]">
+                Source Code, IEEE Report & Viva PPT
               </h3>
-              <span className="text-xs text-[#000000]/70 font-bold block mt-1">
+              <p className="text-xs text-[#111111]/80 font-medium mt-1">
                 Direct WhatsApp Order • Instant Deliverables & Support
-              </span>
+              </p>
             </div>
 
             {/* Direct WhatsApp Purchase / Order Button */}
             <RazorpayButton
               projectId={project.id}
               projectTitle={project.title}
+              priceInr={project.discounted_price_inr || project.price_inr}
             />
 
-            {/* Deliverables checklist */}
-            <div className="space-y-2.5 pt-4 border-t border-[#D8CEBE] text-xs text-[#000000] font-bold">
+            {/* Deliverables Checklist */}
+            <div className="space-y-2.5 pt-4 border-t border-[#E8E5DC] text-xs text-[#111111] font-bold">
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-[#25D366]" />
+                <CheckCircle2 className="h-4 w-4 text-[#6E263D]" />
                 <span>Verified Source Code (ZIP)</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-[#25D366]" />
+                <CheckCircle2 className="h-4 w-4 text-[#6E263D]" />
                 <span>Formatted IEEE Project Report (.docx/PDF)</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-[#25D366]" />
-                <span>Seminar PPT Presentation</span>
+                <CheckCircle2 className="h-4 w-4 text-[#6E263D]" />
+                <span>Seminar PPT Presentation Deck</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-[#25D366]" />
+                <CheckCircle2 className="h-4 w-4 text-[#6E263D]" />
                 <span>Execution Video & Setup Guide</span>
               </div>
             </div>
 
-            <div className="p-3 bg-[#25D366]/10 rounded-2xl border border-[#25D366]/30 text-center text-[11px] text-[#000000] font-bold flex items-center justify-center gap-1.5">
-              <MessageCircle className="h-3.5 w-3.5 text-[#25D366] fill-[#25D366]" />
-              <span>Direct WhatsApp Delivery • Instant Chat at +91 73823 24346</span>
+            <div className="p-3 bg-[#F4E8E8] rounded-2xl border border-[#E8D2D6] text-center text-[11px] text-[#111111] font-mono flex items-center justify-center gap-2 font-bold">
+              <MessageCircle className="h-4 w-4 text-[#25D366] fill-[#25D366]" />
+              <span>Direct WhatsApp Delivery • +91 73823 24346</span>
             </div>
           </div>
         </div>

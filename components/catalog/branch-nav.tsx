@@ -10,16 +10,16 @@ interface BranchNavProps {
 
 export default function BranchNav({ activeBranch = 'ALL' }: BranchNavProps) {
   return (
-    <div className="flex items-center gap-2 overflow-x-auto pb-3 pt-1 scrollbar-none">
+    <div className="flex items-center gap-2 overflow-x-auto pb-2 pt-1 no-scrollbar">
       <Link
         href="/projects"
-        className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
+        className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-200 ${
           activeBranch === 'ALL'
-            ? 'bg-[#000000] text-[#FFFFFF] shadow-xs'
-            : 'bg-[#FAF6F0] text-[#000000] border border-[#D8CEBE] hover:bg-[#ECE4DA]'
+            ? 'bg-[#E8D2D6] text-[#111111] border-2 border-[#6E263D] shadow-sm'
+            : 'bg-white text-[#111111] hover:bg-[#F4E8E8] border border-[#E8E5DC]'
         }`}
       >
-        All Branches
+        All Disciplines
       </Link>
 
       {BRANCHES.map((branch) => {
@@ -28,10 +28,10 @@ export default function BranchNav({ activeBranch = 'ALL' }: BranchNavProps) {
           <Link
             key={branch.id}
             href={`/branches/${branch.id}`}
-            className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
+            className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-200 ${
               isActive
-                ? 'bg-[#000000] text-[#FFFFFF] shadow-xs'
-                : 'bg-[#FAF6F0] text-[#000000] border border-[#D8CEBE] hover:bg-[#ECE4DA]'
+                ? 'bg-[#E8D2D6] text-[#111111] border-2 border-[#6E263D] shadow-sm'
+                : 'bg-white text-[#111111] hover:bg-[#F4E8E8] border border-[#E8E5DC]'
             }`}
           >
             {branch.name}
