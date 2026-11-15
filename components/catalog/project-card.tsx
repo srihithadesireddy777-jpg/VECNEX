@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { Project } from '@/lib/types';
 import { BRANCHES } from '@/lib/constants';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
-import { formatINR } from '@/lib/utils/currency';
 
 interface ProjectCardProps {
   project: Project;
@@ -13,7 +12,6 @@ interface ProjectCardProps {
 
 export default function ProjectCard({ project }: ProjectCardProps) {
   const branchInfo = BRANCHES.find((b) => b.id === project.branch);
-  const activePrice = project.discounted_price_inr || project.price_inr;
 
   return (
     <div className="group bg-white rounded-2xl overflow-hidden flex flex-col h-full relative transition-all duration-300 hover:-translate-y-1 border border-[#E8E5DC] hover:border-[#E8D2D6] shadow-xs hover:shadow-md">
@@ -88,25 +86,12 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           </span>
         </div>
 
-        {/* Card Footer with Price & Action */}
+        {/* Card Footer with Deliverable Status & Action */}
         <div className="mt-auto pt-3.5 border-t border-[#E8E5DC] flex items-center justify-between gap-2">
           <div>
-            {activePrice && activePrice > 0 ? (
-              <div className="flex items-baseline gap-1.5">
-                <span className="text-sm sm:text-base font-bold font-mono text-[#111111]">
-                  {formatINR(activePrice)}
-                </span>
-                {project.discounted_price_inr && project.price_inr && project.price_inr > activePrice && (
-                  <span className="text-[10px] font-mono text-[#111111]/45 line-through">
-                    {formatINR(project.price_inr)}
-                  </span>
-                )}
-              </div>
-            ) : (
-              <span className="text-xs font-mono font-bold text-[#111111]">
-                Complete Package
-              </span>
-            )}
+            <span className="text-xs font-mono font-bold text-[#111111] block">
+              Complete Package
+            </span>
             <span className="text-[10px] text-[#111111]/60 font-mono block">
               Tested & Verified
             </span>

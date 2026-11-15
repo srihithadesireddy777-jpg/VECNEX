@@ -1,0 +1,15 @@
+# Netlify Configuration
+# Disable Netlify Drawer, Feedback Widget, and collaborative deploy preview branding
+
+[build.environment]
+  NETLIFY_DRAWER = "false"
+  NETLIFY_FEEDBACK_DISABLED = "true"
+
+[context.production.environment]
+  NETLIFY_DRAWER = "false"
+  NETLIFY_FEEDBACK_DISABLED = "true"
+
+[context.deploy-preview.environment]
+  NETLIFY_DRAWER = "false"
+  NETLIFY_FEEDBACK_DISABLED = "true"
+

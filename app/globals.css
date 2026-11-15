@@ -171,3 +171,26 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Suppress Netlify-injected footer branding, badge, drawer, or feedback widget */
+#netlify-drawer,
+.netlify-drawer,
+[data-netlify-deploy-id],
+[data-netlify-badge],
+.netlify-badge,
+iframe[src*="netlify"],
+iframe#netlify-drawer-frame,
+div[id*="netlify"],
+div[class*="netlify-drawer"],
+a[href*="netlify.com"][target="_blank"]:has(img[src*="netlify"]),
+a[href*="netlify.com"]:has(svg),
+img[src*="netlify"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  height: 0 !important;
+  width: 0 !important;
+  position: absolute !important;
+  clip: rect(0, 0, 0, 0) !important;
+}

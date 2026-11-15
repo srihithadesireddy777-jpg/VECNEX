@@ -89,7 +89,7 @@ export default function CustomRequestPage() {
       (formData.deadline ? `📅 Target Deadline: ${formData.deadline}\n` : '') +
       (formData.budget.trim() ? `💰 Estimated Budget: ${formData.budget.trim()}\n` : '') +
       (formData.description.trim() ? `📝 Project Details / Specifications:\n${formData.description.trim()}\n` : '') +
-      `\nPlease review my custom project requirements and share pricing, feasibility & IEEE deliverable details.`
+      `\nPlease review my custom project requirements and share feasibility & IEEE deliverable details.`
     );
   };
 

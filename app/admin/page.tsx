@@ -105,7 +105,7 @@ export default async function AdminDashboardPage() {
                 <th className="p-3.5 font-bold">Project Title</th>
                 <th className="p-3.5 font-bold">Branch</th>
                 <th className="p-3.5 font-bold">Scope</th>
-                <th className="p-3.5 font-bold">Price</th>
+                <th className="p-3.5 font-bold">Package</th>
                 <th className="p-3.5 font-bold">Downloads</th>
                 <th className="p-3.5 font-bold">Status</th>
               </tr>
@@ -124,8 +124,8 @@ export default async function AdminDashboardPage() {
                   <td className="p-3.5 text-[#111111]/70 font-mono text-[11px] font-semibold">
                     {project.category === 'MAJOR_FINAL_YEAR' ? 'Major' : 'Mini'}
                   </td>
-                  <td className="p-3.5 font-bold font-mono text-[#111111]">
-                    {formatINR(project.discounted_price_inr || project.price_inr)}
+                  <td className="p-3.5 font-bold font-mono text-[#111111] text-[11px]">
+                    Complete Package
                   </td>
                   <td className="p-3.5 text-[#111111]/70 font-mono font-semibold">
                     {project.download_count}

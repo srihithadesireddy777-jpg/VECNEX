@@ -11,7 +11,6 @@ import {
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react';
-import { formatINR } from '@/lib/utils/currency';
 
 export default function CinematicShowcase({ projects }: { projects: Project[] }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -22,7 +21,6 @@ export default function CinematicShowcase({ projects }: { projects: Project[] })
   if (!currentProject) return null;
 
   const branchInfo = BRANCHES.find((b) => b.id === currentProject.branch);
-  const activePrice = currentProject.discounted_price_inr || currentProject.price_inr;
 
   const handleNext = () => {
     setSelectedIndex((prev) => (prev + 1) % spotlight.length);
@@ -174,27 +172,12 @@ export default function CinematicShowcase({ projects }: { projects: Project[] })
                 </div>
               </div>
 
-              {/* Price & Details CTA */}
+              {/* Deliverable Info & Details CTA */}
               <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-t border-[#E8E5DC]">
                 <div>
-                  {activePrice && activePrice > 0 ? (
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-xl sm:text-2xl font-bold font-mono text-[#111111]">
-                        {formatINR(activePrice)}
-                      </span>
-                      {currentProject.discounted_price_inr &&
-                        currentProject.price_inr &&
-                        currentProject.price_inr > activePrice && (
-                          <span className="text-xs font-mono text-[#111111]/45 line-through">
-                            {formatINR(currentProject.price_inr)}
-                          </span>
-                        )}
-                    </div>
-                  ) : (
-                    <span className="text-sm font-mono font-bold text-[#111111]">
-                      Complete Package
-                    </span>
-                  )}
+                  <span className="text-sm font-mono font-bold text-[#111111] block">
+                    Complete Package
+                  </span>
                   <span className="text-[10px] font-mono text-[#111111]/70 block font-semibold">
                     Instant WhatsApp delivery
                   </span>
