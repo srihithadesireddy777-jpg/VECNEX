@@ -3,7 +3,7 @@ import { BRANCHES, DEMO_PROJECTS } from '@/lib/constants';
 import { createAdminClient } from '@/lib/supabase/admin';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://capstonia.qd.je';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://vecnex.dpdns.org';
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {

@@ -17,9 +17,14 @@ const spaceGrotesk = Space_Grotesk({
   display: 'swap',
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://vecnex.dpdns.org';
+
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://capstonia.qd.je'),
-  title: 'VECNEX — Ideas Deserve to be Engineered',
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: 'VECNEX — Ideas Deserve to be Engineered',
+    template: '%s | VECNEX',
+  },
   description:
     'VECNEX is the premier engineering project marketplace. Verified production-grade source code, IEEE-compliant reports, viva presentations, and direct technical mentoring for CSE, IT, AI&DS, AIML, and Data Science.',
   keywords: [
@@ -31,6 +36,33 @@ export const metadata: Metadata = {
     'AI ML projects',
     'VECNEX',
   ],
+  alternates: {
+    canonical: siteUrl,
+  },
+  openGraph: {
+    title: 'VECNEX — Ideas Deserve to be Engineered',
+    description:
+      'VECNEX is the premier engineering project marketplace. Verified production-grade source code, IEEE-compliant reports, viva presentations, and direct technical mentoring.',
+    url: siteUrl,
+    siteName: 'VECNEX',
+    images: [
+      {
+        url: '/images/projects/p1.webp',
+        width: 1200,
+        height: 630,
+        alt: 'VECNEX Engineering Project Marketplace',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'VECNEX — Ideas Deserve to be Engineered',
+    description:
+      'Verified production-grade engineering projects, IEEE reports, and technical mentoring.',
+    images: ['/images/projects/p1.webp'],
+  },
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || 'PF-zrsKVlBaRpYMTe1qeDXI9UxWVvVLPxhddVd-xG0E',
   },
