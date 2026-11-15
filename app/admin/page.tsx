@@ -1,6 +1,5 @@
 export const instant = false;
 
-import { formatINR } from '@/lib/utils/currency';
 import { normalizeProjects } from '@/lib/utils/project';
 import { Shield, Plus, Database, TrendingUp, Layers } from 'lucide-react';
 import { createClient } from '@/lib/supabase/server';
@@ -21,7 +20,7 @@ export default async function AdminDashboardPage() {
     projects = normalizeProjects(DEMO_PROJECTS);
   }
 
-  const totalRevenue = 148900;
+  const totalInquiries = 148;
   const totalOrders = 84;
   const totalProjects = projects?.length || 0;
 
@@ -53,11 +52,11 @@ export default async function AdminDashboardPage() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         <div className="p-6 rounded-3xl bg-white border border-[#E8D2D6] shadow-[0_10px_30px_rgba(110,38,61,0.04)] space-y-2">
           <div className="flex items-center justify-between text-[#111111]/70">
-            <span className="text-[10px] font-mono uppercase tracking-widest font-bold">Invoiced Value</span>
+            <span className="text-[10px] font-mono uppercase tracking-widest font-bold">Academic Inquiries</span>
             <TrendingUp className="h-4 w-4 text-[#6E263D]" />
           </div>
           <div className="text-2xl sm:text-3xl font-black font-mono text-[#111111]">
-            {formatINR(totalRevenue)}
+            {totalInquiries}
           </div>
           <span className="text-[11px] text-[#111111]/70 font-normal block">
             Direct & verified WhatsApp student packages

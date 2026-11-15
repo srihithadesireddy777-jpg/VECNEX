@@ -223,7 +223,6 @@ export default async function ProjectDetailsPage({
             <RazorpayButton
               projectId={project.id}
               projectTitle={project.title}
-              priceInr={project.discounted_price_inr || project.price_inr}
             />
 
             {/* Deliverables Checklist */}
